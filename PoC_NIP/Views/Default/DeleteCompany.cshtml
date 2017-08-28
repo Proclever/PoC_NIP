@@ -1,0 +1,88 @@
+﻿@model PoC_NIP.Models.Company
+
+@{
+    Layout = "~/Views/_Layout.cshtml";
+}
+
+<h2>Usuń firmę</h2>
+
+<h3>Czy jesteś pewien, że chcesz usunąć tą firmę?</h3>
+<div>
+    <h4>Firma</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nip)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nip)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Regon)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Regon)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Krs)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Krs)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Street)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Street)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StreetNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StreetNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PostalCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PostalCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.City)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Usuń" class="btn btn-default" /> |
+            @Html.ActionLink("Powrót do listy", "CompanyList")
+        </div>
+    }
+</div>

@@ -1,0 +1,91 @@
+﻿@model PoC_NIP.Models.Company
+@{
+    Layout = "~/Views/_Layout.cshtml";
+}
+
+<h3 class="text-center" style="margin:15px;margin-top:30px;">Wyszukaj firmę, wpisując numer NIP, REGON lub KRS</h3>
+<p class="text-center">
+    @Html.TextBox("searchbox", null, new { @class= "input-lg", @style="margin:5px;" })
+    <input id="searchbutton" style="margin:5px;" class="btn btn-default btn-lg" type="button" value="Pobierz dane" />
+</p>
+<h4 id="notfoundinfo" class="text-danger text-center" style="display:none;margin-top:30px;">Błąd wyszukiwania - nieprawidłowy numer.</h4>
+<div id="companyfields" style="display:none;margin:30px;">
+    <div class="row" style="margin:5px;">
+        <div class="col-lg-offset-3 col-md-offset-3 col-sm-offset-2 col-lg-6 col-md-6 col-sm-8">
+            <div>
+                @Html.LabelFor(m => m.Name)
+            </div>
+            <div>
+                @Html.TextBoxFor(m => m.Name, new { @class = "input-sm", @style="width:100%;" })
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin:5px;">
+        <div class="col-lg-offset-3 col-md-offset-3 col-sm-offset-2 col-lg-4 col-md-4 col-sm-6">
+            <div>
+                @Html.LabelFor(m => m.Street)
+            </div>
+            <div>
+                @Html.TextBoxFor(m => m.Street, new { @class = "input-sm", @style = "width:100%;" })
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2">
+            <div>
+                @Html.LabelFor(m => m.StreetNumber)
+            </div>
+            <div>
+                @Html.TextBoxFor(m => m.StreetNumber, new { @class = "input-sm", @style = "width:100%;" })
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin:5px;">
+        <div class="col-lg-offset-3 col-md-offset-3 col-sm-offset-2 col-lg-2 col-md-2 col-sm-3">
+            <div>
+                @Html.LabelFor(m => m.PostalCode)
+            </div>
+            <div>
+                @Html.TextBoxFor(m => m.PostalCode, new { @class = "input-sm", @style = "width:100%;" })
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-5">
+            <div>
+                @Html.LabelFor(m => m.City)
+            </div>
+            <div>
+                @Html.TextBoxFor(m => m.City, new { @class = "input-sm", @style = "width:100%;" })
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+<script>
+    $("#searchbutton").click(function () {
+        $("#companyfields").show();
+        $.ajax({
+            url: "api/companies/search",
+            data: { phrase: $("#searchbox").val() },
+            type: "GET",
+            success: function (data) {
+                $("#notfoundinfo").hide();
+                $("#Name").val(data.Name);
+                $("#Street").val(data.Street);
+                $("#StreetNumber").val(data.StreetNumber);
+                $("#PostalCode").val(data.PostalCode);
+                $("#City").val(data.City);
+            },
+            error: function() {
+                $("#companyfields").find("input").val(null);
+                $("#notfoundinfo").show();
+            }
+        });
+    });
+    $("#searchbox").keypress(function (e) {
+        var key = e.which;
+        if (key == 13)
+        {
+            $("#searchbutton").click();
+            return false;
+        }
+    });
+</script>
+}

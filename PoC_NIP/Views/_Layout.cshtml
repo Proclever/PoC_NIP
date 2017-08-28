@@ -1,0 +1,27 @@
+﻿@using System.Web.Optimization;
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Proof of Concept</title>
+    @Styles.Render("~/Content/css")
+</head>
+<body>
+    <div class="container body-content">
+        <h2 class="text-center">Proof of Concept</h2>
+        <div>
+            <p class="text-center">@Html.ActionLink("Wyszukaj firmę", "Index") - @Html.ActionLink("Lista firm", "CompanyList") - @Html.ActionLink("Lista logów", "LogList")</p>
+        </div>
+        <hr>
+        <div>
+            @RenderBody()
+        </div>
+        <hr>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

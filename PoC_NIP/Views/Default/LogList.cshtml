@@ -1,0 +1,52 @@
+﻿@model IEnumerable<PoC_NIP.Models.SearchLog>
+
+@{
+    Layout = "~/Views/_Layout.cshtml";
+}
+
+<h2>Lista logów</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Created)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phrase)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Found)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Company.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HttpRequestHeaders)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Created)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Phrase)
+            @if (item.Phrase == null) { @Html.Raw("[null]") }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Found)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Company.Name)
+            @if (item.Found && item.CompanyFound == null) { @Html.Raw("[Firma usunięta]") }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HttpRequestHeaders)
+        </td>
+    </tr>
+}
+
+</table>
